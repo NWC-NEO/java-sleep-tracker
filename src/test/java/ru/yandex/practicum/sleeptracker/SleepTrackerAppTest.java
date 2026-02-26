@@ -97,7 +97,7 @@ class SleepTrackerAppTest {
         sessions.add(createSession("01.10.25 23:30", "02.10.25 09:30", Quality.GOOD));
         sessions.add(createSession("02.10.25 23:45", "03.10.25 10:00", Quality.GOOD));
 
-        assertEquals("Сова", new ChronotypeAnalyzer().apply(sessions).getValue());
+        assertEquals(Chronotype.OWL, new ChronotypeAnalyzer().apply(sessions).getValue());
     }
 
     @Test
@@ -105,7 +105,7 @@ class SleepTrackerAppTest {
         sessions.add(createSession("01.10.25 23:30", "02.10.25 09:30", Quality.GOOD)); // Сова
         sessions.add(createSession("02.10.25 21:00", "03.10.25 06:00", Quality.GOOD)); // Жаворонок
 
-        assertEquals("Голубь", new ChronotypeAnalyzer().apply(sessions).getValue());
+        assertEquals(Chronotype.PIGEON, new ChronotypeAnalyzer().apply(sessions).getValue());
     }
 
     // Преобразует строковые даты в объекты SleepSession для удобного создания тестовых данных
