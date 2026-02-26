@@ -12,13 +12,16 @@ public class SleeplessNightsAnalyzer implements SleepAnalyzer {
             return new SleepAnalysisResult("Количество бессонных ночей", 0L);
         }
 
-        LocalDate startDate = sessions.get(0).getStart().getHour() >= 12
-                ? sessions.get(0).getStart().toLocalDate()
-                : sessions.get(0).getStart().toLocalDate().minusDays(1);
+        SleepSession firstSession = sessions.get(0);
+        SleepSession lastSession = sessions.get(sessions.size() - 1);
 
-        LocalDate endDate = sessions.get(sessions.size() - 1).getEnd().getHour() < 12
-                ? sessions.get(sessions.size() - 1).getEnd().toLocalDate().minusDays(1)
-                : sessions.get(sessions.size() - 1).getEnd().toLocalDate();
+        LocalDate startDate = firstSession.getStart().getHour() >= 12
+                ? firstSession.getStart().toLocalDate()
+                : firstSession.getStart().toLocalDate().minusDays(1);
+
+        LocalDate endDate = lastSession.getEnd().getHour() < 12
+                ? lastSession.getEnd().toLocalDate().minusDays(1)
+                : lastSession.getEnd().toLocalDate();
 
         long totalNights = startDate.datesUntil(endDate.plusDays(1)).count();
 
